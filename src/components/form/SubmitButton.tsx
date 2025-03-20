@@ -4,9 +4,9 @@ import { useFormContext } from "@/hooks/form-context";
 
 type SubmitButtonProps = {
   children: React.ReactNode;
-};
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const SubmitButton = ({ children }: SubmitButtonProps) => {
+export const SubmitButton = ({ children, ...props }: SubmitButtonProps) => {
   const form = useFormContext();
 
   const [isSubmitting, canSubmit] = useStore(form.store, (state) => [
@@ -15,7 +15,7 @@ export const SubmitButton = ({ children }: SubmitButtonProps) => {
   ]);
 
   return (
-    <Button type="submit" disabled={isSubmitting || !canSubmit}>
+    <Button disabled={isSubmitting || !canSubmit} {...props}>
       {children}
     </Button>
   );

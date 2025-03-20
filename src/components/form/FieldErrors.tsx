@@ -9,7 +9,7 @@ export const FieldErrors = ({ meta }: FieldErrorsProps) => {
   if (!meta.isTouched) return null;
 
   return meta.errors.map(({ message }: ZodError, index) => (
-    <p key={index} className="text-sm font-medium text-destructive">
+    <p key={index} className="text-sm font-medium text-red-500">
       {message}
     </p>
   ));
