@@ -5,7 +5,7 @@ const initialState: InvoiceSchema = {
   city: "",
   country: "",
   postalCode: "",
-  invoiceDate: new Date(),
+  invoiceDate: new Date().toISOString(),
   clientName: "",
   clientCity: "",
   clientCountry: "",
@@ -22,7 +22,6 @@ const invoiceSlice = createSlice({
       state,
       action: PayloadAction<Partial<InvoiceSchema>>
     ) => {
-      console.log(action.payload.invoiceDate);
       return { ...state, ...action.payload };
     },
   },

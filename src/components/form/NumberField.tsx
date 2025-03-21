@@ -3,6 +3,8 @@ import { FieldErrors } from "./FieldErrors";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { useFieldContext } from "@/hooks/form-context";
+import { useDispatch } from "react-redux";
+import { updateInvoiceState } from "@/state/invoices/invoiceSlice";
 
 type NumberFieldProps = {
   label: string;
@@ -10,6 +12,7 @@ type NumberFieldProps = {
 
 export const NumberField = ({ label, ...inputProps }: NumberFieldProps) => {
   const field = useFieldContext<number>();
+  const dispatch = useDispatch();
 
   return (
     <div className="space-y-2">
@@ -19,7 +22,12 @@ export const NumberField = ({ label, ...inputProps }: NumberFieldProps) => {
           id={field.name}
           type="number"
           value={field.state.value}
-          onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+          onChange={(e) => {
+            dispatch(
+              updateInvoiceState({ [field.name]: e.target.valueAsNumber })
+            );
+            field.handleChange(e.target.valueAsNumber);
+          }}
           onBlur={field.handleBlur}
           {...inputProps}
         />

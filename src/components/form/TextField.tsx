@@ -3,12 +3,15 @@ import { FieldErrors } from "./FieldErrors";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { useFieldContext } from "@/hooks/form-context";
+import { updateInvoiceState } from "@/state/invoices/invoiceSlice";
+import { useDispatch } from "react-redux";
 
 type TextFieldProps = {
   label: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export const TextField = ({ label, ...inputProps }: TextFieldProps) => {
+  const dispatch = useDispatch();
   const field = useFieldContext<string>();
 
   return (
@@ -18,7 +21,10 @@ export const TextField = ({ label, ...inputProps }: TextFieldProps) => {
         <Input
           id={field.name}
           value={field.state.value}
-          onChange={(e) => field.handleChange(e.target.value)}
+          onChange={(e) => {
+            dispatch(updateInvoiceState({ [field.name]: e.target.value }));
+            field.handleChange(e.target.value);
+          }}
           onBlur={field.handleBlur}
           {...inputProps}
         />

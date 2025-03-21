@@ -9,7 +9,7 @@ export const invoiceSchema = z.object({
   clientCity: z.string().min(1),
   clientCountry: z.string().min(1),
   clientPostalCode: z.string().min(1),
-  invoiceDate: z.date(),
+  invoiceDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
   price: z.number(),
 });
 
